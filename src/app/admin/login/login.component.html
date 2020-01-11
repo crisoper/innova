@@ -1,0 +1,61 @@
+<mat-card>
+    <mat-card-title>
+        Formulario
+    </mat-card-title>
+    <mat-card-subtitle>
+        Ejemplo de validacion de fformularios
+    </mat-card-subtitle>
+    <mat-card-content>
+
+          <form [formGroup]="formularioEjemplo" (ngSubmit)="enviarFormulario()" novalidate class="contenedor" >
+
+            <!-- Nombre -->
+            <mat-form-field>
+              <input matInput placeholder="Ingrese su nombre" formControlName="nombre">
+              <mat-error *ngIf="mostrarError('nombre', 'required')">
+                Por favor ingrese su nombre
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Correo electronico -->
+
+            <mat-form-field>
+              <input matInput placeholder="Ingrese su correo" formControlName="correo">
+              <mat-error *ngIf="mostrarError('correo', 'required')">
+                Por favor ingrese su correo
+              </mat-error>
+              <mat-error *ngIf="mostrarError('correo', 'email')">
+                Ingrese un correo valido
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Radio button -->
+            <mat-radio-group aria-label="Seleccione una opcion" formControlName="sexo">
+              <mat-radio-button value="Masculino">Masculino</mat-radio-button>
+              <mat-radio-button value="Femenino">Femenino</mat-radio-button>
+            </mat-radio-group>
+
+            <!-- Fecha nacimiento -->
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" formControlName="fechanacimiento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+            <!-- Seleccionar -->
+            <mat-form-field>
+              <mat-label>Grado</mat-label>
+              <select matNativeControl [(value)]="selected"  required formControlName="grado" >
+                <option [value]="gradosArray" *ngFor="let grado of gradosArray">{{ grado }}</option>
+              </select>
+            </mat-form-field>
+
+            <!-- <button mat-flat-button color="primary" [disabled]="!formularioEjemplo.valid" >Guardar datos</button> -->
+            <button mat-flat-button color="primary">Guardar datos</button>
+
+          </form>
+
+    </mat-card-content>
+
+</mat-card>
